@@ -1,5 +1,5 @@
-from  flask import render_template,request, redirect
-from app import app, login
+from  flask import render_template,request, redirect,jsonify,session
+from app import app, login,utils
 import  dao
 from admin import admin
 from flask_login import login_user
@@ -19,5 +19,28 @@ def login_admin():
 @login.user_loader
 def load_login(userid):
     return dao.layuser(userid)
+
+@app.route('/api/cart',methods=['post'])
+def add_card():
+
+   data= request.json
+   cart=session.get('cart')
+   if cart is None:
+       cart={}
+   id= str(data.get("id"))
+   if id in cart:
+      cart[id]['quanity']+=1
+   else:
+       cart[id]={
+           'id':id,
+           'name': data.get('name'),
+           'price': data.get('price'),
+           'quanity':1
+       }
+   session['cart']=cart
+   return jsonify(
+       utils.count_cart(cart)
+   )
+
 if __name__=="__main__":
     app.run(debug=True)

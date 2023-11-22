@@ -1,5 +1,4 @@
 
-
 from sqlalchemy import Column,Integer,String,ForeignKey,Float,Enum
 from sqlalchemy.orm import relationship
 from app import db,app
