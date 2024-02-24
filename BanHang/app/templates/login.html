@@ -1,4 +1,8 @@
-{% extends 'layout/base.html' %}
+{%if check == False: %}
+    {%extends 'layout/base.html'%}
+{%else: %}
+    {%extends 'layoutNV/basenv.html'%}
+{%endif%}
 {% block content%}
 <form method="post" action="">
   <div class="mb-3 mt-3">
@@ -9,6 +13,6 @@
     <label for="pwd" class="form-label">Password:</label>
     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Dang Nhap</button>
 </form>
 {% endblock %}

@@ -9,15 +9,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 </head>
 
 <body>
-{%include 'layout/header.html'%}
+{%include 'layoutNV/headerNV.html'%}
+
 {% block content %}
 
 {% endblock %}
 {%include 'layout/footer.html'%}
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
 <script src="{{ url_for('static', filename='js/xuLy_TTKH.js') }}"></script>
+<script src="{{ url_for('static', filename='js/xuLy_DonHangShipper.js') }}"></script>
+
 </body>
 </html>

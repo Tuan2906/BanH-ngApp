@@ -1,0 +1,76 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1 class="text-center text-info">THÔNG KÊ VÀ BÁO CÁO</h1>
+<div class="container">
+        <div class="row">
+            <form class="d-flex">
+                <div class="form-group col-md-5">
+                    <input type="text" name="month" placeholder="Nhập tháng..." class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <input type="submit" value="Thống kê" class="btn btn-info">
+                </div>
+            </form>
+
+        </div>
+    </div>
+<div class="row">
+  <div class="col-md-5 col-xs-12">
+    <table class="table">
+      <tr>
+        <th>Id</th>
+        <th>Tên sản phẩm</th>
+        <th>Doanh thu</th>
+      </tr>
+      {% for s in states %}
+      <tr>
+        <td>{{s[0]}}</td>
+        <td>{{s[1]}}</td>
+        <td>{{ "{:,.0f}".format(s[3])}} VNĐ</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="col-md-7 col-xs-12">
+    <canvas id="myChart"></canvas>
+      <br></br>
+      <div style="font-size: 30px; font-weight: bold">Tổng doanh thu: {{ "{:,.0f}".format(sum)}} VNĐ </div>
+      </div>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+window.onload = function() {
+  const ctx = document.getElementById('myChart');
+
+  let data = [];
+  let labels = [];
+
+  {% for s in states %}
+  labels.push('{{s[1]}}')
+  data.push({{s[3]}});
+  {% endfor %}
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Doanh thu',
+        data: data,
+        borderWidth: 2,
+        backgroundColor: ['red', 'green', 'blue', 'gold', 'silver']
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'layoutNV/basenv.html' %}
+
+{% block title %}Đăng ký thông tin tuyển dụng{% endblock %}
+{% block content %}
+{% if current_user.is_authenticated %}
+    <form action="/lichsudonhang" method="post">
+    <h1 class="text-center text-info mt-1">Lịch sử đặt hàng</h1>
+    <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Nhập tháng:</label>
+        <input type="text" class="form-control" id="sdt" placeholder="Nhập thang cần lọc..." name="thang"
+               >
+        <input type="submit"  class="btn btn-primary" value="Tìm kiếm">
+            <table class="table">
+            {%if sl ==0: %}
+               <h1 class="text-center text-info">KHÔNG CÓ ĐƠN HÀNG ĐƯỢC ĐẶT TRONG THÁNG</h1>
+            {%else%}
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số tiền</th>
+                    <th>số lượng sản phẩm</th>
+                    <th>Tình trạng giao van</th>
+                </tr>
+                {%for t in range(sl) %}
+                    <tr>
+                        <td>{{lay_donHang[t][2] }}</td>
+                        <td>{{lay_donHang[t][1]}}</td>
+                        <td>{{lay_donHang[t][0]}}</td>
+                        <td>{{lay_donHang[t][3]}}</td>
+                    </tr>
+                {% endfor %}
+            {%endif%}
+
+         </table>
+
+    </div>
+</form>
+  {%else:%}
+     <h1 class="text-center text-info mt-1">THÔNG TIN CÁ NHÂN</h1>
+    <form method="post" action="/thongtintuyendungnhanvien" enctype="multipart/form-data">
+    <div class="mb-3 mt-3">
+        <label for="name" class="form-label">Họ và tên:</label>
+        <input type="text" class="form-control" id="name" placeholder="Nguyễn Văn A" name="name">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="name" class="form-label">Căn cước Công Dân:</label>
+        <input type="text" class="form-control" id="cccd" name="cccd">
+    </div>
+     <div class="col p-1 text-dark">
+         <label for="name" class="form-label">Giới tính:</label>
+        <select class="form-select p-3 " name="gioitinh" required>
+            <option>----</option>
+            <option value="1">Nam</option>
+            <option value="0">Nữ</option>
+        </select>
+    </div>
+
+    <div class="col p-1 text-dark">
+        <strong>Ngày Sinh</strong>
+        <input type="date"
+               id="date{{i}}"
+               class="form-control p-2 m-1"
+               name="ngaysinh" min="1900-01-01"
+               max="2023-12-31" onblur=" checkNgaySinhNguoiLon(this)" required>
+    </div>
+    <div class="mb-3">
+        <label for="avatar" class="form-label">ảnh xác thực CCCD:</label>
+        <input type="file" accept=".png,.jpg" class="form-control" id="avatar" name="anhxacthuc">
+    </div>
+    <h2 class="text-center text-info mt-1">THÔNG TIN LIÊN HỆ</h2>
+
+    <div class="mb-3 mt-3">
+        <label for="sdt" class="form-label">Số điện thoại liên hệ:</label>
+        <input type="text" class="form-control" id="sdt" placeholder="Nhập  số diện thoại..." name="SDT"
+               onchange=" checkSDT(this)" required>
+    </div>
+    <div class="mb-3 mt-3">
+        <strong class="form-label">Vui lòng nhập địa chỉ email để nhận mã xác thực:</strong>
+        <h1></h1>
+        <label for="email" class="form-label">Địa chỉ email:</label>
+        <input type="text" class="form-control" id="email" placeholder="Nhập  địa chỉ email..." name="email"
+                required>
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label for="xacthuc" class="form-label">Mã xác thực:</label>
+        <input type="text" class="form-control" id="xacthuc" placeholder="Nhập mã xác thực email..." name="SDT"
+                required>
+    </div>
+    <div class="mb-3">
+        <label for="pwd" class="form-label">Địa chỉ hiện nay:</label>
+        <input type="text" class="form-control" id="diachi" placeholde="Nhập địa chỉ..." name="diaChi">
+    </div>
+     <div class="d-flex" >
+         <div class="ms-auto p-2 m-2">
+             <button class="common-button2" style="
+                        background: #ed1c24 none repeat scroll 0 0;
+                        border: 0 none;
+                        border-radius: 3px;
+                        color: #ffffff;
+                        float: right;
+                        font-size: 18px;
+                        line-height: 28px;
+                        margin: 0;
+                        padding: 5px 15px;
+                        text-transform: uppercase;" type="submit">XÁC NHẬN THÔNG TIN</button></div>
+     </div>
+</form>
+ {%endif%}
+
+{%endblock%}

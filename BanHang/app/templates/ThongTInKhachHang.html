@@ -1,0 +1,79 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đăng ký{% endblock %}
+{% block content %}
+
+{% if err_msg %}
+<div class="alert alert-danger">
+  {{ err_msg }}
+</div>
+{% endif %}
+{% if demluot == 1 %}
+<h1 class="text-center text-info mt-1">THÔNG TIN CÁ NHÂN</h1>
+    <table class="table">
+         <tr>
+            <th>Họ và tên</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+             <th></th>
+        </tr>
+        <tr id="product{{ tt_KH.id }}">
+            <td>{{ tt_KH.hoTen }}</td>
+            <td>{{tt_KH.sdt}}</td>
+            <td>{{tt_KH.diaChi}}</td>
+        </tr>
+    </table>
+{%endif%}
+{% if demluot > 1 %}
+<form action="/up_ttsp" method="post">
+<h1 class="text-center text-info mt-1">Lịch sử đặt hàng</h1>
+    <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Nhập tháng:</label>
+        <input type="text" class="form-control" id="sdt" placeholder="Nhập thang cần lọc..." name="thang"
+               >
+        <input type="submit"  class="btn btn-primary" value="Tìm kiếm">
+    </div>
+    <table class="table">
+        {%if soluong_sp ==0: %}
+           <h1 class="text-center text-info">KHÔNG CÓ ĐƠN HÀNG ĐƯỢC ĐẶT TRONG THÁNG {{month}}</h1>
+        {%else%}
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số tiền</th>
+                <th>số lượng sản phẩm</th>
+                <th>Ngày đặt</th>
+                <th>Tình trạng</th>
+            </tr>
+            {%for t in range(soluong_sp) %}
+                <tr id="product{{ tt_sp.id }}">
+                    <td>{{tt_sp[t][2] }}</td>
+                    <td>{{tt_sp[t][1]}}</td>
+                    <td>{{tt_sp[t][0]}}</td>
+                    <td>{{tt_sp[t][4]}}</td>
+                    <td>{{tinhtrang[t]}}</td>
+                </tr>
+            {% endfor %}
+        {%endif%}
+
+    </table>
+</form>
+{%endif%}
+{% if demluot ==0  %}
+<h1 class="text-center text-info mt-1">THÔNG TIN KHÁCH HÀNG</h1>
+      <form method="post" action="/thanhtoan" enctype="multipart/form-data">
+      <div class="mb-3 mt-3">
+        <label for="name" class="form-label">Họ và tên khách hàng:</label>
+        <input type="text" class="form-control" id="name" value="{{hoten_KH.hoTen }}" name="name"  readonly >
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Số điện thoại liên hệ:</label>
+        <input type="text" class="form-control" id="sdt" placeholder="Nhập  số diện thoại..." name="SDT" onchange=" checkSDT(this)" required>
+      </div>
+      <div class="mb-3">
+        <label for="pwd" class="form-label">Địa chỉ nhận hàng:</label>
+        <input type="text" class="form-control" id="diachi" placeholde="Nhập địa chỉ..." name="diaChi">
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="check_TT()">Xác nhận thông tin</button>
+    </form>
+{%endif%}
+{% endblock %}

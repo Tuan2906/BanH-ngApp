@@ -1,0 +1,181 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: beige;
+
+  }
+header{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    padding:20px 40px;
+    background-color: firebrick;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.AirlineName{
+    font-size: 2em;
+    color:aliceblue;
+    user-select: none;
+}
+.XnThanhCong{
+    font-size: 2em;
+    color:aliceblue;
+    user-select: none;
+}
+.LuaChon a {
+    position:relative;
+    font-size: 1.2em;
+    color:bisque;
+    text-decoration: none;
+    font-weight:500;
+    margin-left: 18px;
+    margin-right: 7px;
+}
+.LuaChon a::after{
+    content: '';
+    position: absolute;
+    left:0;
+    bottom: -6px;
+    width: 100%;
+    height:3px;
+    background:bisque;
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+.LuaChon a:hover::after{
+    transform: scaleX(1);
+}
+.LuaChon .btnLienHe {
+    width: 130px;
+    height: 50px;
+    background:transparent;
+    border: 2px solid bisque;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color:bisque;
+    margin-right: 60px;
+    transition: .5s;
+}
+.LuaChon .btnLienHe:hover {
+    background-color: bisque;
+    color:darkslategray;
+}
+.btnTroLai {
+    width: 130px;
+    height: 50px;
+    background:transparent;
+    border: 2px solid bisque;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color:bisque;
+    margin-right: 60px;
+    transition: .5s;
+}
+.btnTroLai:hover{
+    background-color: bisque;
+    color:darkslategray;
+}
+.btnThanhToan{
+    background-color: aquamarine;
+    border-radius: 6px;
+    padding: 8px;
+    margin-left: 235px;
+    margin-top: 80px;
+    width: 20%;
+
+
+}
+.btnHuy{
+    background-color: aquamarine;
+    border-radius: 6px;
+    padding: 8px;
+    height:40px;
+    width: 20%;
+    float: right;
+    margin-top: -39px;
+    margin-right: 156px
+}
+.ten {
+   font-size: 1rem
+    padding: 3px;
+}
+.wrapper{
+    position: relative;
+    width: 720px;
+    height: 450px;
+    background: transparent;
+    background-color: rgb(202, 231, 250);
+    border-radius: 2px solid rgb(2, 2, 2) (255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    margin-left:25%
+
+}
+.wrapper .hopInput{
+    width: 100%;
+    padding: 40px;
+    background: transparent;
+    border: transparent;
+}
+.wrapper label{
+    font-size: 1em;
+}
+.nhapNhaCungCap input{
+    background: transparent;
+    border: transparent;
+}
+
+
+.nhapDichVu input{
+    background: transparent;
+    border: transparent;
+}
+.nhapDon input{
+    background: transparent;
+    border: transparent;
+}
+.nhapTien input{
+    background: transparent;
+    border: transparent;
+}
+.raTen input{
+    background: transparent;
+    border: transparent;
+}
+.raLienlac input{
+    background: transparent;
+    border: transparent;
+}
+.raNgay input{
+    background: transparent;
+    border: transparent;
+}
+.raTrangThai input{
+    background: transparent;
+    border: transparent;
+}
+.raEmail input{
+    background: transparent;
+    border: transparent;
+}
+.cacDichVu{
+    border: none;
+    background-color: transparent;
+
+}
+.huy {
+  float: right;
+  margin-top: -40px;
+   margin-right: 100px;
+}

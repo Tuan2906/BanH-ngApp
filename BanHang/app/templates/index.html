@@ -1,25 +1,108 @@
 {%extends 'layout/base.html'%}
 {% block content %}
+<style>
+    .fixed-element {
+        position: fixed;
+        right: 0;
+       botton: 0;
+       margin-right:-400px;
+       margin-top:-50px;
+    }
+    .chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.chat-header {
+  background-color: red;
+  padding: 5px;
+}
+
+.chat-title {
+  font-weight: bold;
+  font-style: 50px;
+}
+
+.chat-content {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.chat-footer {
+  background-color: #ddd;
+  padding: 5px;
+}
+.minus
+{
+ float: right;
+ background-color: #fff;
+ color: darkblue;
+ width:50px;
+ font-size: 20px;
+}
+.chat-input {
+  width: 80%;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.chat-send-button {
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #000;
+  color: #fff;
+  float:right;
+}
+
+</style>
 <section>
+    <form action="" method="post">
     <div class="container">
         <div class="row">
             {%for p in product%}
             <div class="col col-xs-12 col-md-4">
-
                 <div class="card">
                     <img class="card-img-top" src={{p.image}} alt="Card image">
                     <div class="card-body">
                         <h4 class="card-title">{{p.name}}</h4>
-                        <p class="card-text">{{p.price}}</p>
-                        <a href="#" class="btn btn-primary" onclick="add_to_cart({{p.id}},'{{p.name}}',{{p.price}}">Mua hang</a>
+                        <p class="card-text">{{ "{:,.0f}".format(p.price) }} VNĐ</p>
+                        <a href="/products/{{p.id}}" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="javascript:;" onclick="addToCart({{p.id}}, '{{p.name}}', {{p.price}})"
+                           class="btn btn-danger">Đặt hàng</a>
                     </div>
                 </div>
 
             </div>
             {%endfor%}
         </div>
+         <div class="row" >
+            <div class="col-sm-4 fixed-element" >
+                <h3 style="font-style:13px">Chatbox</h3>
+                <img src="https://fhr.fra1.cdn.digitaloceanspaces.com/NHLGamer/ECL/ECL_8/team_logos/Lite/ECL8%20Lite%20-%20Chatbox.png" width="90" height="100" class="img-responsive" alt="Image of chat button" onclick="showChat()">
+            </div>
+           <div class="card chat-box fixed-right" style="display:none;">
+               <div class="card-header">
+                    <span class="chat-title">Chat</span>
+                   <button class="btn btn-danger minus" >&times;</button>
+                  </div>
+                  <div class="card-body chat-content">
+                    </div>
+                  <div class="card-footer chat-footer">
+                    <input type="text" class="chat-input" placeholder="Nhập tin nhắn...">
+                    <button class="chat-send-button btn btn-primary">Gửi</button>
+              </div>
+           </div>
 
     </div>
+    </form>
 </section>
 <script src="{{url_for('static',filename='js/cart.js')}}"></script>
 {% endblock %}

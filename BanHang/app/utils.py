@@ -1,11 +1,12 @@
 def count_cart(cart):
-    tong_sl, tongten =0,0
-    for c in cart.value():
-        tong_sl+=c['quanity']
-        tongten= c['quanity']*c['price']
+    total_amount, total_quantiy = 0, 0
+
+    if cart:
+        for c in cart.values():
+            total_quantiy += c['quantity']
+            total_amount += c['quantity']*c['price']
 
     return {
-
-            'total_amount': tongten,
-            'toal_quanity': tong_sl
+        "total_amount": total_amount,
+        "total_quantity": total_quantiy
     }
