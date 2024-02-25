@@ -19,6 +19,7 @@
                     <th>Số tiền</th>
                     <th>số lượng sản phẩm</th>
                     <th>Tình trạng giao van</th>
+                    <th>Ngày giao vận</th>
                 </tr>
                 {%for t in range(sl) %}
                     <tr>
@@ -26,10 +27,10 @@
                         <td>{{lay_donHang[t][1]}}</td>
                         <td>{{lay_donHang[t][0]}}</td>
                         <td>{{lay_donHang[t][3]}}</td>
+                        <td>{{lay_donHang[t][4]}}</td>
                     </tr>
                 {% endfor %}
             {%endif%}
-
          </table>
 
     </div>

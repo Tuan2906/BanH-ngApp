@@ -25,6 +25,12 @@ class AuthenticatedUser(BaseView):
         return current_user.is_authenticated
 
 
+class AuthenticatedAd(BaseView):
+    def is_accessible(self):
+        if current_user.is_authenticated and current_user.user_role == UserRoleEnum.admin or current_user.is_authenticated and current_user.user_role == UserRoleEnum.nhanVien:
+            return current_user.is_authenticated
+
+
 class View_DanhMuc(AuthenticatedAdmin):
     column_list = ['id', 'name', 'products']
     can_export = True
@@ -58,7 +64,7 @@ class LogoutView(AuthenticatedUser):
         return redirect('/admin')
 
 
-class statistical(BaseView):
+class statistical(AuthenticatedAd):
     @expose("/")
     def index(self):
         if request.args.get("month"):
@@ -67,9 +73,6 @@ class statistical(BaseView):
             month = datetime.now().month
         return self.render('admin/thongke.html', states=dao.stats_revenue_by_month(month=month),
                            sum=dao.tong_doanh_thu(m=month))
-
-    def is_accessible(self):
-        return current_user.is_authenticated
 
 
 admin.add_view(View_DanhMuc(DanhMuc, db.session))

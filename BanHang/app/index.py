@@ -288,7 +288,7 @@ def login_view():
                 print("Phan XU ly truy xuat")
                 print(ds_ChiTietDonHang)
                 sl_dh_oneShipper = len(ds_shipper)
-                sl_chitietDH = len(chitiet_DH)
+                sl_chitietDH = len(ds_ChiTietDonHang)
                 return render_template('indexShipper.html', dsshiper=ds_shipper, sl=sl_dh_oneShipper,
                                        ds_ChiTietDonHang=ds_ChiTietDonHang, soluong=sl_chitietDH)
         next = request.args.get('next')
@@ -306,20 +306,19 @@ def layChiTietDonHang(id_HoaDon):
     print(id_HoaDon)
     chitiet_DH = dao.truyvan_DonHang(id_HoaDon=id_HoaDon)
     sl = len(chitiet_DH.all())
+    print("Check")
+    print(sl)
+    print(chitiet_DH.all())
     dsChiTiet_DH = []
-    j = 0
     for i in range(sl):
-        if chitiet_DH[i][0] != chitiet_DH[j][0] or j == 0:
-            dsChiTiet_DH.append(
-                {
-                    'id': chitiet_DH[i][0],
-                    'sp': chitiet_DH[i][1],
-                    'sl': chitiet_DH[i][2],
-                    'thanhtien': chitiet_DH[i][3]
-                }
-            )
-            j += 1
-    print("Chi Tiet Don Hang")
+        dsChiTiet_DH.append(
+            {
+                'id': chitiet_DH[i][0],
+                'sp': chitiet_DH[i][1],
+                'sl': chitiet_DH[i][2],
+                'thanhtien': chitiet_DH[i][3]
+            }
+        )
     return dsChiTiet_DH
 
 
@@ -519,7 +518,6 @@ def shipment():
     global check, dem
     check = True
     dem = 0
-
     return render_template('indexShipper.html')
 
 

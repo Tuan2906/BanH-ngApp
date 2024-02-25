@@ -8,77 +8,83 @@
     <h1 class="text-center text-info mt-1">THÔNG TIN DON HANG CAN GIAO</h1>
 <div class="container mt-3">
     <div id="accordion">
-        <table class="table">
-             <tr>
-                <th>Ma van don</th>
-                <th>Ho Ten Khach Hang</th>
-                <th>So Dien Thoai</th>
-                 <th>Dia Chi nguoi nhan</th>
-                 <th>Tong tien phai tra</th>
-                 <th></th>
-                 <th>Tinh trang don hang</th>
-                 <th></th>
-                 <th></th>
-            </tr>
-            <form  method="post">
-                {%for i in range(sl)%}
-                    <tr id="product" data-id="{{i}}">>
-                        <td >{{dsshiper[i].get('ma_vaDon')}}</td>
-                        <td>{{dsshiper[i].get('hoten')}}</td>
-                        <td>{{dsshiper[i].get('sdt')}}</td>
-                        <td><a href="https://www.google.com/maps/search/?api=1&query={{dsshiper[i].get('diaChiNha')}}+View,+CA+94043" target="_blank">
-                            {{dsshiper[i].get('diaChiNha')}}</a></td>
-                        {% if dsshiper[i].get('tinhTrang') == 'Da Thanh Toan'%}
-                           <td>{{ "{:,.0f}".format(0)}} VND</td>
-                        {%else:%}
-                            <td>{{ "{:,.0f}".format(dsshiper[i].get('tongtien'))}} VND</td>
-                        {%endif%}
-                        <td><a class=   "btn w-80" data-bs-toggle="collapse" href="#collapse{{ dsshiper[i].get('ma_vaDon') }}">Chi tiet don hang</a>
-                             <div id="collapse{{ dsshiper[i].get('ma_vaDon') }}" class="collapse" data-bs-parent="#accordion" >
-                                 {% for j in range(soluong) %}
-                                     <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Ten San Pham</th>
-                                                    <th>so luong dat</th>
-                                                    <th>tong tien san pham</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>{{ds_ChiTietDonHang[j].get('id')}}</td>
-                                                    <td>{{ds_ChiTietDonHang[j].get('sp')}}</td>
-                                                    <td>{{ds_ChiTietDonHang[j].get('sl')}}</td>
-                                                    <td>{{ds_ChiTietDonHang[j].get('thanhtien')}}</td>
-                                                </tr>
-                                                </tbody>
-                                     </table>
-                                 {%endfor%}
-                                  <div
-                                       class="btn-next">
-                                        <button type="submit" class="btn btn-success" onclick="lay_idDonHang(this)">Tiếp tục</button>
-                                    </div>
+         {% if sl==0 %}
+                  <h3 class="text-center  mt-1">KHONG CO DON HANG CAN GIAO</h3>
+        {%else%}
+
+            <table class="table">
+                 <tr>
+                    <th>Ma van don</th>
+                    <th>Ho Ten Khach Hang</th>
+                    <th>So Dien Thoai</th>
+                     <th>Dia Chi nguoi nhan</th>
+                     <th>Tong tien phai tra</th>
+                     <th></th>
+                     <th>Tinh trang don hang</th>
+                     <th></th>
+                     <th></th>
+                </tr>
+                <form  method="post">
+                                    {%for i in range(sl)%}
+                            <tr id="product" data-id="{{i}}">>
+                                <td >{{dsshiper[i].get('ma_vaDon')}}</td>
+                                <td>{{dsshiper[i].get('hoten')}}</td>
+                                <td>{{dsshiper[i].get('sdt')}}</td>
+                                <td><a href="https://www.google.com/maps/search/?api=1&query={{dsshiper[i].get('diaChiNha')}}+View,+CA+94043" target="_blank">
+                                    {{dsshiper[i].get('diaChiNha')}}</a></td>
+                                {% if dsshiper[i].get('tinhTrang') == 'Da Thanh Toan'%}
+                                   <td>{{ "{:,.0f}".format(0)}} VND</td>
+                                {%else:%}
+                                    <td>{{ "{:,.0f}".format(dsshiper[i].get('tongtien'))}} VND</td>
+                                {%endif%}
+                                <td><a class=   "btn w-80" data-bs-toggle="collapse" href="#collapse{{ dsshiper[i].get('ma_vaDon') }}">Chi tiet don hang</a>
+                                     <div id="collapse{{ dsshiper[i].get('ma_vaDon') }}" class="collapse" data-bs-parent="#accordion" >
+                                         {% for j in range(soluong) %}
+                                             <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Ten San Pham</th>
+                                                            <th>so luong dat</th>
+                                                            <th>tong tien san pham</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>{{ds_ChiTietDonHang[j].get('id')}}</td>
+                                                            <td>{{ds_ChiTietDonHang[j].get('sp')}}</td>
+                                                            <td>{{ds_ChiTietDonHang[j].get('sl')}}</td>
+                                                            <td>{{ds_ChiTietDonHang[j].get('thanhtien')}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                             </table>
+                                         {%endfor%}
+                                          <div
+                                               class="btn-next">
+                                                <button type="submit" class="btn btn-success" onclick="lay_idDonHang(this)">Tiếp tục</button>
+                                            </div>
 
 
-                             </div>
-                        </td>
-                        <td>{{dsshiper[i].get('tinhTrang')}}</td>
-                        <td><button class="common-button" style="
-                                    background: #ed1c24 none repeat scroll 0 0;
-                                    border: 0 none;
-                                    border-radius: 3px;
-                                    color: #ffffff;
-                                    font-size: 10px;
-                                    line-height: 12px;
-                                    padding: 5px 10px;
-                                    text-transform: uppercase;" type="submit" onclick="lay_idDonHang(this)">Hoan thanh</button></td>
-                    </tr>
+                                     </div>
+                                </td>
+                                <td>{{dsshiper[i].get('tinhTrang')}}</td>
+                                <td><button class="common-button" style="
+                                            background: #ed1c24 none repeat scroll 0 0;
+                                            border: 0 none;
+                                            border-radius: 3px;
+                                            color: #ffffff;
+                                            font-size: 10px;
+                                            line-height: 12px;
+                                            padding: 5px 10px;
+                                            text-transform: uppercase;" type="submit" onclick="lay_idDonHang(this)">Hoan thanh</button></td>
+                            </tr>
 
-                {%endfor%}
-            </form>
+                        {%endfor%}
 
-        </table>
+                </form>
+
+            </table>
+        {%endif%}
     </div>
 </div>
 

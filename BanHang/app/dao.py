@@ -229,6 +229,7 @@ def truyvan_DonHangDaUpdate(id_shipper):
         .group_by(HoaDon.id, User.diaChi, User.hoTen, User.sdt, HoaDon.active)
     return orders
 
+
 # Phan nay xu ly thong tin ve nhan don hang vao ngay moi cho shipper
 def truyvan_DonHang(id_HoaDon):
     # Lấy ngày hiện tại
@@ -239,9 +240,9 @@ def truyvan_DonHang(id_HoaDon):
         ChiTietHoaDon.id,
         SanPham.name, ChiTietHoaDon.quantity,
         (ChiTietHoaDon.quantity * ChiTietHoaDon.price).label('tongtien'),
-    ).join(HoaDon, id_HoaDon == ChiTietHoaDon.receipt_id).join(User, User.id == HoaDon.user_id) \
+    ).join(HoaDon, HoaDon.id == ChiTietHoaDon.receipt_id).filter(HoaDon.id == id_HoaDon) \
         .join(SanPham, SanPham.id == ChiTietHoaDon.product_id)
-
+    print('Vao xem checck')
     print(query.all())
     return query
 
@@ -267,6 +268,7 @@ def updonhangshipper(id_Shipper):
     return ChiTietHoaDon.query \
         .join(SanPham, ChiTietHoaDon.product_id == SanPham.id) \
         .join(HoaDon, ChiTietHoaDon.receipt_id == HoaDon.id) \
-        .join(NhanVien, ChiTietHoaDon.id_NVshipper == NhanVien.id) \
+        .join(NhanVien, HoaDon.id_NVshipper == NhanVien.id) \
         .filter(NhanVien.id_TK == id_Shipper) \
-        .with_entities(ChiTietHoaDon.quantity, ChiTietHoaDon.price, SanPham.name, HoaDon.trangThaiGiaoVan)
+        .with_entities(ChiTietHoaDon.quantity, ChiTietHoaDon.price, SanPham.name, HoaDon.trangThaiGiaoVan,
+                       HoaDon.ngayGiao)
